@@ -1,0 +1,1 @@
+R04O standalone test. Unzip the folder and host all files together on a static web host. Open index.html via the hosted URL. No Canvas integration or automatic routing is included yet. This is a single-scroll prototype.
