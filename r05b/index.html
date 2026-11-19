@@ -278,32 +278,28 @@ considered the first animated movie star.</p></div></div><div class="w-col w-col
  function update(){if(window.innerWidth>767)return;var rect=root.getBoundingClientRect();var range=Math.max(1,root.offsetHeight-window.innerHeight);var p=clamp(-rect.top/range);var a=clamp((p-.10)/.28),b=clamp((p-.56)/.28);layers[0].style.opacity=1-a;layers[1].style.opacity=a*(1-b);layers[2].style.opacity=b;}
  var pending=false;function schedule(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;update()})}
  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);document.addEventListener('DOMContentLoaded',schedule);schedule();
-})();</script><script id="r05p-diagnostic">
+})();</script><script id="r05q-diagnostic">
 (function(){
 if(new URLSearchParams(location.search).get('layoutdebug')!=='1')return;
 var groups=[
- ['Television / Flintstones','#Section-5'],
- ['CGI / Andre and Wally B','#Section-6'],
- ['Springfield / cloud composition','.simpsons-section-1'],
- ['Simpsons follow-on artwork','.all-simpsons'],
- ['Toy Story / Pixar','.toystory3'],
- ['Closer cloud only','img.clouds_1.closer'],
- ['All five clouds','img.cloud_2, img.clouds_1, img.cloud_3'],
- ['Entire modern-era sequence','#Section-5, #Section-6, .simpsons-section-1, .all-simpsons, .toystory3']
+ ['Opening / Section B','#Section-B'],
+ ['Section 1','#Section-1'],['Section 2','#Section-2'],['Section 3','#Section-3'],
+ ['Section 4','#Section-4'],['Section 5','#Section-5'],['Section 6','#Section-6'],
+ ['Sections B through 3','#Section-B, #Section-1, #Section-2, #Section-3'],
+ ['Sections 4 through 6','#Section-4, #Section-5, #Section-6'],
+ ['All numbered sections','#Section-B, #Section-1, #Section-2, #Section-3, #Section-4, #Section-5, #Section-6'],
+ ['All Springfield clouds','img.cloud_2, img.clouds_1, img.cloud_3']
 ];
-var panel,results=[],baseline,hidden=new Map();
-function measure(){var h=document.documentElement,b=document.body,v=window.visualViewport;return {client:h.clientWidth,inner:innerWidth,visual:v?Math.round(v.width):'n/a',html:h.scrollWidth,body:b.scrollWidth,excess:Math.max(h.scrollWidth,b.scrollWidth)-h.clientWidth,scrollX:Math.round(scrollX),dpr:devicePixelRatio};}
-function fmt(m){return 'viewport '+m.client+' | inner '+m.inner+' | visual '+m.visual+' | html '+m.html+' | body '+m.body+' | excess '+m.excess+' | scrollX '+m.scrollX;}
+var panel, baseline, results=[], hidden=new Map();
+function measure(){var h=document.documentElement,b=document.body,v=window.visualViewport;return {client:h.clientWidth,inner:innerWidth,visual:v?Math.round(v.width):'n/a',html:h.scrollWidth,body:b.scrollWidth,excess:Math.max(h.scrollWidth,b.scrollWidth)-h.clientWidth,scrollX:Math.round(scrollX)};}
+function fmt(m){return 'viewport '+m.client+' | html '+m.html+' | body '+m.body+' | excess '+m.excess+' | scrollX '+m.scrollX;}
 function restore(){hidden.forEach(function(v,el){if(v===null)el.style.removeProperty('display');else el.style.setProperty('display',v.value,v.priority)});hidden.clear();}
 function hide(selector){var els=Array.from(document.querySelectorAll(selector));els.forEach(function(el){if(!hidden.has(el)){var v=el.style.getPropertyValue('display');hidden.set(el,v?{value:v,priority:el.style.getPropertyPriority('display')}:null)}el.style.setProperty('display','none','important')});return els.length;}
-function button(label,fn){var el=document.createElement('button');el.textContent=label;el.style.cssText='padding:8px;margin:3px;background:#fff;color:#111;border:1px solid #aaa;border-radius:4px;font:13px Arial';el.onclick=fn;return el;}
-function viewportInfo(){var metas=Array.from(document.querySelectorAll('meta[name="viewport"]')).map(function(m){return m.getAttribute('content')});var d=document.documentElement,b=document.body;var ds=getComputedStyle(d),bs=getComputedStyle(b);return 'VIEWPORT AUDIT\nmeta: '+JSON.stringify(metas)+'\nscreen: '+screen.width+' x '+screen.height+' | orientation: '+(screen.orientation?screen.orientation.type:'unknown')+'\nouter: '+outerWidth+' x '+outerHeight+' | devicePixelRatio: '+devicePixelRatio+'\nhtml CSS: width '+ds.width+' | min-width '+ds.minWidth+' | max-width '+ds.maxWidth+' | overflow-x '+ds.overflowX+'\nbody CSS: width '+bs.width+' | min-width '+bs.minWidth+' | max-width '+bs.maxWidth+' | overflow-x '+bs.overflowX+'\n';}
-function render(){if(!panel){panel=document.createElement('aside');panel.id='r05p-diagnostic';panel.style.cssText='position:fixed!important;z-index:2147483647!important;left:5px!important;right:5px!important;bottom:5px!important;max-height:60dvh!important;overflow:auto!important;box-sizing:border-box!important;padding:10px!important;background:#161616!important;color:#fff!important;border:2px solid #ffcf55!important;font:12px/1.45 monospace!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;';document.body.appendChild(panel)}panel.replaceChildren();var title=document.createElement('div');title.textContent='R05P SECTION ISOLATION\n'+fmt(measure())+'\nEach test restores the previous test first.\n';panel.appendChild(title);
-groups.forEach(function(g){panel.appendChild(button('Test: '+g[0],function(){restore();var n=hide(g[1]);requestAnimationFrame(function(){requestAnimationFrame(function(){results.push(g[0]+' ('+n+' matched): '+fmt(measure()));render()})})}))});
-panel.appendChild(button('Restore all',function(){restore();render()}));panel.appendChild(button('Copy full report',function(){var t=report();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){alert('Report copied')},function(){prompt('Copy report',t)});else prompt('Copy report',t)}));
-var out=document.createElement('div');out.textContent='\n'+viewportInfo()+'\nBASELINE\n'+fmt(baseline)+'\n\nTESTS\n'+(results.length?results.join('\n'):'No tests yet.');panel.appendChild(out);
-}
-function report(){return 'R05P DIAGNOSTIC\n'+viewportInfo()+'\nBASELINE\n'+fmt(baseline)+'\nTESTS\n'+results.join('\n')}
+function btn(label,fn){var e=document.createElement('button');e.textContent=label;e.style.cssText='padding:8px;margin:3px;background:white;color:#111;border:1px solid #aaa;border-radius:4px;font:13px Arial';e.onclick=fn;return e;}
+function report(){return 'R05Q DIAGNOSTIC\nBASELINE '+fmt(baseline)+'\nTESTS\n'+results.join('\n')+'\nSCREEN '+screen.width+' x '+screen.height+' | DPR '+devicePixelRatio+'\nVIEWPORT META '+Array.from(document.querySelectorAll('meta[name="viewport"]')).map(function(x){return x.content}).join('; ');}
+function render(){if(!panel){panel=document.createElement('aside');panel.id='r05q-panel';panel.style.cssText='position:fixed!important;z-index:2147483647!important;left:5px!important;right:5px!important;bottom:5px!important;max-height:60dvh!important;overflow:auto!important;box-sizing:border-box!important;padding:10px!important;background:#161616!important;color:#fff!important;border:2px solid #ffcf55!important;font:12px/1.45 monospace!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;';document.body.appendChild(panel)}panel.replaceChildren();var title=document.createElement('div');title.textContent='R05Q SECTION ISOLATION\n'+fmt(measure())+'\nEach test restores the previous test.\n';panel.appendChild(title);
+groups.forEach(function(g){panel.appendChild(btn('Test: '+g[0],function(){restore();var n=hide(g[1]);requestAnimationFrame(function(){requestAnimationFrame(function(){results.push(g[0]+' ('+n+' matched): '+fmt(measure()));render()})})}))});
+panel.appendChild(btn('Restore all',function(){restore();render()}));panel.appendChild(btn('Copy full report',function(){var t=report();if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){alert('Report copied')},function(){prompt('Copy report',t)});else prompt('Copy report',t)}));var out=document.createElement('div');out.textContent='\n'+report();panel.appendChild(out)}
 window.addEventListener('load',function(){setTimeout(function(){baseline=measure();render()},850)});
 })();
 </script>
