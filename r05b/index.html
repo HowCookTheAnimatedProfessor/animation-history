@@ -278,44 +278,27 @@ considered the first animated movie star.</p></div></div><div class="w-col w-col
  function update(){if(window.innerWidth>767)return;var rect=root.getBoundingClientRect();var range=Math.max(1,root.offsetHeight-window.innerHeight);var p=clamp(-rect.top/range);var a=clamp((p-.10)/.28),b=clamp((p-.56)/.28);layers[0].style.opacity=1-a;layers[1].style.opacity=a*(1-b);layers[2].style.opacity=b;}
  var pending=false;function schedule(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;update()})}
  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);document.addEventListener('DOMContentLoaded',schedule);schedule();
-})();</script>
-<!-- R05L: mobile width diagnostic; no layout changes to the R05J baseline. -->
+})();</script><!-- R05M: read-only mobile overflow diagnostic. Activate with ?layoutdebug=1 -->
 <script>
-(function () {
-  if (!/^(1|true)$/.test(new URLSearchParams(location.search).get('layoutdebug') || '')) return;
-  function report() {
-    var viewport = document.documentElement.clientWidth;
-    var offenders = Array.from(document.body.querySelectorAll('*')).map(function (el) {
-      var r = el.getBoundingClientRect(), st = getComputedStyle(el);
-      return {el:el, left:Math.round(r.left), right:Math.round(r.right), width:Math.round(r.width),
-        pos:st.position, overflow:st.overflowX, transform:st.transform};
-    }).filter(function (x) {
-      return x.width > 0 && x.el.id !== 'r05l-diagnostics' &&
-        (x.right > viewport + 3 || x.left < -3) &&
-        x.pos !== 'fixed';
-    }).sort(function (a,b) { return Math.max(b.right-viewport,-b.left) - Math.max(a.right-viewport,-a.left); });
-    var panel = document.getElementById('r05l-diagnostics');
-    if (!panel) {
-      panel = document.createElement('aside'); panel.id='r05l-diagnostics';
-      panel.style.cssText='position:fixed;bottom:8px;left:8px;right:8px;z-index:2147483647;max-height:38vh;overflow:auto;background:#151515;color:white;border:2px solid #ffd36a;padding:12px;font:12px/1.5 monospace;box-shadow:0 2px 12px #0009;';
-      document.body.appendChild(panel);
-    }
-    var docwidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth);
-    panel.replaceChildren();
-    var title=document.createElement('div');
-    title.textContent='R05L WIDTH DIAGNOSTIC | viewport '+viewport+'px | document '+docwidth+'px | '+offenders.length+' candidates';
-    title.style.fontWeight='bold';panel.appendChild(title);
-    var btn=document.createElement('button');btn.textContent='Refresh measurements';btn.style.margin='6px 0';btn.onclick=report;panel.appendChild(btn);
-    offenders.slice(0,12).forEach(function (x) {
-      var line=document.createElement('div');
-      var cls=typeof x.el.className==='string' ? x.el.className.trim().replace(/\s+/g,'.').slice(0,65):'';
-      line.textContent=x.el.tagName.toLowerCase()+(x.el.id?'#'+x.el.id:'')+(cls?'.'+cls:'')+' | L '+x.left+' R '+x.right+' W '+x.width;
-      panel.appendChild(line);
-    });
-    if (!offenders.length) { var line=document.createElement('div');line.textContent='No out-of-bounds elements detected at this scroll position.';panel.appendChild(line); }
-  }
-  window.addEventListener('load', function(){setTimeout(report,800)});
-  window.addEventListener('resize', function(){setTimeout(report,200)});
+(function(){
+ if(new URLSearchParams(location.search).get('layoutdebug')!=='1')return;
+ var panel;
+ function label(el){var cls=typeof el.className==='string'?el.className.trim().split(/\s+/).slice(0,3).join('.'):'';return el.tagName.toLowerCase()+(el.id?'#'+el.id:'')+(cls?'.'+cls:'');}
+ function clipped(el){for(var p=el.parentElement;p&&p!==document.body;p=p.parentElement){var st=getComputedStyle(p);if(/hidden|clip|auto|scroll/.test(st.overflowX)){var pr=p.getBoundingClientRect(),r=el.getBoundingClientRect();if(r.left<pr.left-2||r.right>pr.right+2)return label(p)+' ('+st.overflowX+')';}}return ''}
+ function report(){
+ var de=document.documentElement, body=document.body, vw=de.clientWidth, iw=innerWidth;
+ var rows=Array.from(body.querySelectorAll('*')).filter(function(el){return el!==panel&&!panel?.contains(el)}).map(function(el){var r=el.getBoundingClientRect(),cs=getComputedStyle(el);return {el:el,l:Math.round(r.left),r:Math.round(r.right),w:Math.round(r.width),p:cs.position,t:cs.transform,display:cs.display,clip:clipped(el)};}).filter(function(x){return x.w>0&&x.display!=='none'&&x.p!=='fixed'&&(x.r>vw+3||x.l< -3)});
+ var free=rows.filter(function(x){return !x.clip});
+ var text=['R05M WIDTH DIAGNOSTIC','client '+vw+' | inner '+iw+' | visual '+(visualViewport?Math.round(visualViewport.width):'n/a'),'html scroll '+de.scrollWidth+' | body scroll '+body.scrollWidth,'offscreen '+rows.length+' | not ancestor-clipped '+free.length,'scrollX '+Math.round(scrollX)+' | DPR '+devicePixelRatio];
+ var order=free.slice().sort(function(a,b){return (Math.max(b.r-vw,-b.l))-(Math.max(a.r-vw,-a.l))});
+ order.slice(0,12).forEach(function(x){text.push(label(x.el)+' | L '+x.l+' R '+x.r+' W '+x.w+' | '+x.p+(x.t!=='none'?' transformed':''));});
+ if(!order.length)text.push('No unclipped offscreen elements found.');
+ if(!panel){panel=document.createElement('aside');panel.id='r05m-diagnostics';panel.style.cssText='position:fixed!important;z-index:2147483647!important;left:8px!important;right:8px!important;bottom:8px!important;max-width:calc(100vw - 16px)!important;max-height:40dvh!important;overflow:auto!important;box-sizing:border-box!important;padding:10px!important;border:2px solid #f9d366!important;background:#151515!important;color:#fff!important;font:12px/1.45 monospace!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;';body.appendChild(panel)}
+ panel.replaceChildren();var pre=document.createElement('div');pre.textContent=text.join('\n');panel.appendChild(pre);
+ var refresh=document.createElement('button');refresh.textContent='Refresh';refresh.style.cssText='font:14px sans-serif;padding:6px;margin:8px 8px 0 0';refresh.onclick=report;panel.appendChild(refresh);
+ var copy=document.createElement('button');copy.textContent='Copy report';copy.style.cssText='font:14px sans-serif;padding:6px;margin:8px 0 0';copy.onclick=function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text.join('\n')).then(function(){copy.textContent='Copied'},function(){copy.textContent='Copy unavailable'})}else{copy.textContent='Copy unavailable'}};panel.appendChild(copy);
+ }
+ addEventListener('load',function(){setTimeout(report,700)});addEventListener('resize',function(){setTimeout(report,250)});
 })();
 </script>
 </body></html>
