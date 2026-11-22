@@ -12,27 +12,72 @@ background: #c7c7c7;
 .w-slider-dot.w-active {
 background: #8c7754;
 }
-</style><!-- R07F-01: Mobile-only historical-device slider navigation test. -->
-<style id="r07f01-mobile-slider-navigation">
-@media screen and (max-width: 991px) {
+</style>
+<!-- R07F-02: Mobile-only historical slider geometry and navigation.
+     Preserves the original Webflow slider and all desktop behavior. -->
+<style id="r07f02-mobile-historical-slider">
+@media screen and (max-width: 767px) {
+  /* R05T's previously successful, scene-scoped containment. */
+  .simpsons-section-1 { overflow-x: hidden !important; }
+  [class*="monstersvsaliens"] .years-header.bh6 {
+    display:block; width:auto!important; max-width:100%!important;
+    min-width:0!important; font-size:clamp(1.65rem,7.8vw,2.45rem)!important;
+    line-height:1.12!important; overflow-wrap:anywhere!important;
+    word-break:normal!important; white-space:normal!important;
+    box-sizing:border-box;
+  }
+  [class*="monstersvsaliens"] .w-container.big_hero_6 {
+    min-width:0!important; max-width:100%!important;
+  }
+  /* Keep this particular scene's artwork and text inside the phone width. */
+  .section_white { max-width:100%; overflow-x:clip; }
+  .old-school { width:100%; max-width:100%; height:690px!important; }
+  .old-school .w-slider-mask { width:100%; max-width:100%; }
+  .old-school .w-slide { width:100%; max-width:100%; overflow:hidden; white-space:normal; }
+  .old-school .w-slide .w-container { width:100%; max-width:100%; padding-left:16px; padding-right:16px; box-sizing:border-box; }
+  .old-school .huge-years-sldier, .old-school .huge-years-sldier.smaller {
+    padding:20px 0 8px!important; margin:0 auto!important;
+    font-size:clamp(66px,21vw,110px)!important; line-height:1!important;
+    letter-spacing:-3px!important; max-width:100%;
+  }
+  .old-school .w-slide img {
+    display:block; width:auto!important; height:auto!important;
+    max-width:min(86vw,350px)!important; max-height:280px!important;
+    object-fit:contain; margin:12px auto!important; padding:0!important;
+    position:relative!important; left:auto!important; right:auto!important;
+    top:auto!important; bottom:auto!important; transform:none;
+  }
+  .old-school .w-slide h3 { margin:14px 12px 8px!important; padding:0!important; font-size:clamp(24px,7vw,35px)!important; line-height:1.15!important; text-align:center!important; }
+  .old-school .w-slide .body-paragraph-small {
+    width:auto!important; max-width:100%!important; margin:8px auto!important;
+    padding:0!important; font-size:clamp(15px,4vw,18px)!important;
+    line-height:1.45!important; text-align:center!important;
+    overflow-wrap:break-word; white-space:normal;
+  }
+  .old-school .w-slide .timeline-years { display:none!important; }
   .old-school .w-slider-nav.slider-dots {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    margin-bottom: 18px !important;
-    z-index: 20;
-    pointer-events: auto;
+    display:flex!important; justify-content:center; align-items:center;
+    position:absolute!important; left:0!important; right:0!important;
+    bottom:16px!important; width:100%!important; height:30px!important;
+    margin:0!important; padding:0!important; z-index:20;
+    visibility:visible!important; opacity:1!important; pointer-events:auto;
   }
   .old-school .w-slider-nav.slider-dots .w-slider-dot {
-    margin-left: 6px !important;
-    margin-right: 6px !important;
-    width: 13px;
-    height: 13px;
-    cursor: pointer;
+    width:12px!important; height:12px!important; margin:0 8px!important;
+    cursor:pointer;
   }
+  /* Original Webflow hides the first device on tiny screens. */
+  .old-school .w-slide._1603 { display:block!important; }
+}
+@media screen and (min-width:768px) and (max-width:991px) {
+  .old-school .w-slider-nav.slider-dots {
+    display:block!important; visibility:visible!important; opacity:1!important;
+    margin-bottom:18px!important; z-index:20; pointer-events:auto;
+  }
+  .old-school .w-slider-nav.slider-dots .w-slider-dot { margin:0 6px!important; }
 }
 </style>
-</head><body data-gr-c-s-loaded="true"><div id="r07-recovery-tag" style="position:fixed;top:8px;right:8px;z-index:2147483647;background:#18243b;color:white;font:600 12px/1.4 Arial,sans-serif;padding:5px 9px;border:1px solid #fff8;pointer-events:none;opacity:.9">R07F-01 · MOBILE SLIDER TEST · 22 NOV 2026</div><div class="w-nav navbar" data-animation="default" data-collapse="all" data-contain="1" data-duration="500" data-ix="display-nav" style="transform: translateX(0px) translateY(0px); display: block; transition: transform 0.5s ease 0s, transform 0.5s ease 0s, transform 0.5s ease 0s, transform 0.5s ease 0s, transform 0.5s ease 0s, transform 500ms;"><div class="w-container"><div class="w-nav-button menu-button"><div class="w-icon-nav-menu navbar-icon"></div></div><nav class="w-nav-menu nav-menu" role="navigation" style="transform: translateY(0px) translateX(0px);"><div class="w-row"><div class="w-col w-col-4 menu-image _1"><a class="w-inline-block link-block" href="#Section-1"><div class="menu-overlay _1"><h5>Early Ways <br/>of Showing <br/>Motion</h5></div></a></div><div class="w-col w-col-4 menu-image _2"><a class="w-inline-block link-block _2" href="#Section-2"><div class="menu-overlay _2"><h5>Animation <br/>Before <br/>Film</h5></div></a></div><div class="w-col w-col-4 menu-image _3"><a class="w-inline-block link-block section-a" href="#Section-3"><div class="menu-overlay _3"><h5>THE <br/>SILENT<br/>ERA</h5></div></a></div></div><div class="w-row"><div class="w-col w-col-4 menu-image _4"><a class="w-inline-block link-block _4" href="#Section-4"><div class="menu-overlay _4"><h5>The Golden <br/>Age of American Animation</h5></div></a></div><div class="w-col w-col-4 menu-image _5"><a class="w-inline-block link-block _5" href="#Section-5"><div class="menu-overlay"><h5>The American<br/>Television <br/>Era</h5></div></a></div><div class="w-col w-col-4 menu-image _6"><a class="w-inline-block link-block _6" href="#Section-6"><div class="menu-overlay _6"><h5>Modern
+</head><body data-gr-c-s-loaded="true"><div id="r07-recovery-tag" style="position:fixed;top:8px;right:8px;z-index:2147483647;background:#18243b;color:white;font:600 12px/1.4 Arial,sans-serif;padding:5px 9px;border:1px solid #fff8;pointer-events:none;opacity:.9">R07F-02 · MOBILE GEOMETRY TEST · 22 NOV 2026</div><div class="w-nav navbar" data-animation="default" data-collapse="all" data-contain="1" data-duration="500" data-ix="display-nav" style="transform: translateX(0px) translateY(0px); display: block; transition: transform 0.5s ease 0s, transform 0.5s ease 0s, transform 0.5s ease 0s, transform 0.5s ease 0s, transform 0.5s ease 0s, transform 500ms;"><div class="w-container"><div class="w-nav-button menu-button"><div class="w-icon-nav-menu navbar-icon"></div></div><nav class="w-nav-menu nav-menu" role="navigation" style="transform: translateY(0px) translateX(0px);"><div class="w-row"><div class="w-col w-col-4 menu-image _1"><a class="w-inline-block link-block" href="#Section-1"><div class="menu-overlay _1"><h5>Early Ways <br/>of Showing <br/>Motion</h5></div></a></div><div class="w-col w-col-4 menu-image _2"><a class="w-inline-block link-block _2" href="#Section-2"><div class="menu-overlay _2"><h5>Animation <br/>Before <br/>Film</h5></div></a></div><div class="w-col w-col-4 menu-image _3"><a class="w-inline-block link-block section-a" href="#Section-3"><div class="menu-overlay _3"><h5>THE <br/>SILENT<br/>ERA</h5></div></a></div></div><div class="w-row"><div class="w-col w-col-4 menu-image _4"><a class="w-inline-block link-block _4" href="#Section-4"><div class="menu-overlay _4"><h5>The Golden <br/>Age of American Animation</h5></div></a></div><div class="w-col w-col-4 menu-image _5"><a class="w-inline-block link-block _5" href="#Section-5"><div class="menu-overlay"><h5>The American<br/>Television <br/>Era</h5></div></a></div><div class="w-col w-col-4 menu-image _6"><a class="w-inline-block link-block _6" href="#Section-6"><div class="menu-overlay _6"><h5>Modern
 <br/>American <br/>Era</h5></div></a></div></div></nav></div><div class="w-nav-overlay" data-wf-ignore=""></div><div class="w-nav-overlay" data-wf-ignore=""></div><div class="w-nav-overlay" data-wf-ignore=""></div><div class="w-nav-overlay" data-wf-ignore=""></div><div class="w-nav-overlay" data-wf-ignore="" style="display: none;"></div><div class="w-nav-overlay" data-wf-ignore=""></div></div><div class="w-slider slider" data-animation="fade" data-autoplay="1" data-delay="4000" data-duration="1000" data-easing="ease-in-out" data-infinite="1" data-ix="display-nav"><div class="w-slider-mask"><div class="w-slide slide willie" style="transform: translateX(-7420px); opacity: 1; z-index: 140; transition: opacity 1s ease-in-out 0s; visibility: hidden;"><img class="main-header-type" data-ix="load-animation" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 500ms, transform 1000ms;"/></div><div class="w-slide slide slide-3" style="transform: translateX(-7420px); opacity: 1; z-index: 141; visibility: hidden;"><img class="just-bugs" src="./history of animation_06_files/54d43e20dd1988d75368dc3b_Just_Bugs_2.png"/><img class="main-header-type" data-ix="load-animation" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 500ms, transform 1000ms;"/></div><div class="w-slide slide popeye" style="transform: translateX(-7420px); opacity: 1; z-index: 142; transition: opacity 1s ease-in-out 0s; visibility: hidden;"><img class="main-header-type" data-ix="load-animation" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 500ms, transform 1000ms;"/></div><div class="w-slide slide toystory" style="transform: translateX(-7420px); opacity: 1; z-index: 143; visibility: hidden;"><img class="main-header-type" data-ix="load-animation" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 500ms, transform 1000ms;"/></div><div class="w-slide slide snowwhite _2" style="transform: translateX(-7420px); opacity: 1; z-index: 144; transition: opacity 1s ease-in-out 0s, opacity 1000ms ease-in-out;"><img class="just-snow-white" src="./history of animation_06_files/54d43551dd1988d75368dba5_Snow_White.png"/><img class="main-header-type" data-ix="load-animation" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 500ms, transform 1000ms;"/></div><div class="w-slide slide big-hero-6" style="transform: translateX(-7420px); opacity: 1; z-index: 138; visibility: hidden;"><img class="main-header-type" data-ix="load-animation" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 0.5s ease 0s, transform 1s ease 0s, opacity 500ms, transform 1000ms;"/></div><div class="w-slide slide homer" style="transform: translateX(-7420px); opacity: 1; z-index: 139; transition: opacity 1s ease-in-out 0s, opacity 1s ease-in-out 0s; visibility: hidden;"><img class="main-header-type" data-ix="new-interaction" src="./history of animation_06_files/54d0827857cbc5862b30efc4_HEADER_TYPE_2.png"/></div></div></div><div class="section-b" id="Section-B"><img class="old-pencil" data-ix="fade-up-and-in" src="./history of animation_06_files/54d07d6ef7a4d6cb4540611b_Old_Pencil.jpg" style="opacity: 1; transform: translateX(0px) translateY(0px); transition: opacity 0.5s ease 0s, transform 0.8s ease-out 0s, opacity 0.5s ease 0s, transform 0.8s ease-out 0s, opacity 0.5s ease 0s, transform 0.8s ease-out 0s, opacity 0.5s ease 0s, transform 0.8s ease-out 0s, opacity 0.5s ease 0s, transform 0.8s ease-out 0s, opacity 500ms, transform 800ms ease-out;"/><div><p class="w-hidden-main intro-paragraph">You
 don’t have to be a cartoonist to have animation be a big part of your life. Animation
 is everywhere—in our homes, schools, work, and everywhere there’s a screen. And
