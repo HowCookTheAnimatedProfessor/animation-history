@@ -296,11 +296,25 @@ background: #8c7754;
 </style>
 
 <style id="r07g09-snow-white-mobile-foreground">
-/* R07G-09: mobile only, enlarge Snow White character 25%, anchored at bottom. */
-@media screen and (max-width: 767px) {
+/* R07G-10 · EARLY WAYS MOBILE HEIGHT · 22 NOV 2026
   .slider .w-slide.snowwhite._2 > img.just-snow-white {
     transform: scale(1.25) !important;
     transform-origin: center bottom !important;
+  }
+}
+</style>
+<style id="r07g10-early-ways-mobile-height">
+/* R07G-10: only the first Early Ways section; allow text to determine height. */
+@media screen and (max-width: 767px) {
+  body > .secton-c:not(.magic) {
+    height: auto !important;
+    min-height: 0 !important;
+    padding-bottom: 70px !important;
+    overflow: visible !important;
+    background-color: #000 !important;
+  }
+  body > .secton-c:not(.magic) .intro-paragraph.early-ways {
+    margin-bottom: 0 !important;
   }
 }
 </style>
