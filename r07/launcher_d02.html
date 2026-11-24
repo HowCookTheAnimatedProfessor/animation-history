@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Brief History of Animation | Delivery D02</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#202c43;font:17px/1.5 system-ui,sans-serif}main{padding:24px;max-width:640px;margin:auto}a{display:inline-block;background:#253956;color:white;padding:14px 22px;border-radius:6px;text-decoration:none}a:focus-visible{outline:3px solid #e9a45b;outline-offset:4px}small{display:block;margin-top:18px}#desktop{display:none}#desktop iframe{display:block;width:100%;height:calc(100dvh - 46px);border:0}#bar{height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12px}#bar a{padding:5px 10px}body.desktop main{display:none}body.desktop #desktop{display:block}
+</style>
+</head>
+<body>
+<main><h1>A Brief History of Animation</h1><p>Open the interactive experience in a separate window for the full viewing area.</p><a href="./index.html" target="_blank" rel="noopener">Launch experience ↗</a><small>Return to Canvas using your browser tabs or app switcher.</small><small>Delivery D02 · <span id="mode">Standalone launch</span></small></main>
+<section id="desktop" aria-label="Embedded animation history"><div id="bar"><span>Delivery D02 · Desktop embed</span><a href="./index.html" target="_blank" rel="noopener">Open standalone ↗</a></div><iframe id="experience" title="A Brief History of Animation" allow="fullscreen; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></section>
+<script>
+(function(){var ua=navigator.userAgent;var mobile=/Android|iPhone|iPad|iPod|Mobile/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);var touch=matchMedia('(pointer: coarse)').matches;var narrow=matchMedia('(max-width: 700px)').matches;if(!mobile&&!touch&&!narrow){document.body.classList.add('desktop');document.getElementById('experience').src='./index.html';}else{var mode=document.getElementById('mode');mode.textContent='Mobile / compact launch';
+if(window.self!==window.top){
+  try {
+    var key='animation-history-d02-auto-attempt';
+    if(!sessionStorage.getItem(key)){
+      sessionStorage.setItem(key,'1');
+      mode.textContent='Automatic launch attempted; use button if needed';
+      window.top.location.href=new URL('./index.html',window.location.href).href;
+    }else{mode.textContent='Manual launch available after first attempt';}
+  }catch(e){mode.textContent='Automatic launch unavailable; use button';}
+}}})();
+</script>
+</body></html>
